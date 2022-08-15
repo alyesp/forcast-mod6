@@ -4,25 +4,43 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- bootstrap CSS -->
     <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
 
     <title>Weather Dashboard</title>
 </head>
 
-<body>
-    <header>
+<body class="container">
+    <div class="row text-center bg-primary text-white">
         <h1>Weather Dashboard</h1>
-    </header>
-
-    <div>
-        <div>Enter city name:</div>
-        <input type="text" placeholder="Search..">
     </div>
 
+    <div class="row">
+        <div class="column col-3">
+            <form>
+                <label class="text-primary">Search for a city:</label>
+                <input class="form-control my-2 text-primary" type="search" placeholder="Search" id="city-input">
+                <button class="btn btn-outline-primary my-2" style="width: 100%" type="submit" id="search-button">Enter city</button>
+            </form>
 
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
-    <script type="text/javascript" scr="./assets/js/script.js"></script>
+            <button class="btn btn-outline-primary my-2" style="width: 100%" type="submit" id="clear-button">Clear History</button>
+            <div class="border-top border-primary" id="past-searches">
+
+            </div>
+        </div>
+        <div class="column col-9">
+            <div class="row" id="currentConditions"></div>
+            <!-- current city current weather -->
+            <div class="row" id="fiveDayForecastHeader"></div>
+            <div class="d-flex flex-row flex-wrap justify-content-between" id="fiveDayForecat"></div>
+            <!-- Current cit 5 day forecast will go here -->
+        </div>
+    </div>
 </body>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+<script type="text/javascript" scr="./assets/js/script.js"></script>
+
 </html>

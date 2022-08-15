@@ -1,4 +1,16 @@
 body {
     background-color: rgb(212, 209, 209);
     font-family: "Gill Sans", sans-serif;
+    padding: 10px;
+    margin: 10px;
+}
+
+#search-button {
+    background-color: rgb(126, 222, 236);
+    color:rgb(21, 20, 21);
+}
+
+#clear-button {
+    background-color: rgb(126, 222, 236);
+    color: rgb(21, 20, 21);
 }
