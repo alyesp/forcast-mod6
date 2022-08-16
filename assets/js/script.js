@@ -2,6 +2,7 @@ var cityInputEl = $('#city-input');
 var searchBtn = $('#search-button');
 var clearBtn = $('#clear-button');
 var pastSearchedCityEl = $('#past-searches');
+var apiKey = '5e51bd9c5cc145ef9b56e8b0da79d03a'
 
 var currentCity;
 
@@ -75,7 +76,7 @@ function getWeather(data) {
             fiveDayHeaderEl.text('5 Day Forecast:');
             fiveDayForeHeaderEl.append(fiveDayHeaderEl);
 
-            var fiveDayForeEl = $('#fiveDayForecast');
+            var fiveDayForecastEl = $('#fiveDayForecast');
 
             //get key weather info from API data for 5 day forecast
 
@@ -166,7 +167,7 @@ function getCoordinates() {
 //handle request to clear past search history
 function handleClearHistory (event) {
     event.preventDefault();
-    var pastSearchEl = document.getElementById('past-searches');
+    var pastSearchesEl = document.getElementById('past-searches');
 
     localStorage.removeItem("cities");
     pastSearchesEl.innerHTML = '';
@@ -189,7 +190,7 @@ function clearCurrentCityWeather () {
 
 function handleCityFormSubmit (event) {
     event.preventDefault();
-    currentCity = cityInput.val().trim();
+    currentCity = cityInputEl.val().trim();
 
     clearCurrentCityWeather();
     getCoordinates();
@@ -199,7 +200,7 @@ function handleCityFormSubmit (event) {
 
 //when user clicks on city previous searched, and updates will be shown
 
-function pastCityCity(event) {
+function getPastCity(event) {
     var element = event.target;
 
     if(element.matches(".past-city")) {
@@ -225,14 +226,14 @@ function pastCityCity(event) {
             }
             return cityInfo;
         })
-        .then(function(data) {
+        .then(function (data) {
             getWeather(data);
         })
     }
     return;
 }
 
-displaySearchHistory();
+displaySearchHist();
 
 searchBtn.on("click",handleCityFormSubmit);
 clearBtn.on("click",handleClearHistory);

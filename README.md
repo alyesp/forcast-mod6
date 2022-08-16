@@ -20,4 +20,4 @@ THEN I am presented with current and future conditions for that city and that ci
 
 # links:
 #### Github link: https://github.com/alyesp/forcast-mod6
-#### Deployed link: 
+#### Deployed link: https://alyesp.github.io/forcast-mod6/
