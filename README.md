@@ -1,9 +1,9 @@
 # Weather Dashboard
 
-# Description 
+## Description 
 A weather dashboard that allows the user to get a city's current weather conditions and the five day forecast. Third-party APIs are used to access weather data by making requests with specific parameters to a URL. 
 
-# User Story:
+### User Story:
 <li>WHEN I search for a city
 THEN I am presented with current and future conditions for that city and that city is added to the search history</li>
 <li>WHEN I view current weather conditions for that city
@@ -16,7 +16,9 @@ THEN I am presented with current and future conditions for that city and that ci
     THEN I am again presented with current and future conditions for that city</li>
 
 # Screenshot:
-![myscreenshot](./assets/images/Screenshot4.png)
+![myscreenshot](./assets/images/WS1.png)
+![myscreenshot](./assets/images/WS.png)
+
 
 # links:
 #### Github link: https://github.com/alyesp/forcast-mod6

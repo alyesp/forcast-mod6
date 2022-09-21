@@ -2,18 +2,19 @@ var cityInputEl = $('#city-input');
 var searchBtn = $('#search-button');
 var clearBtn = $('#clear-button');
 var pastSearchedCityEl = $('#past-searches');
-var apiKey = '5e51bd9c5cc145ef9b56e8b0da79d03a'
+var apikey = '5e51bd9c5cc145ef9b56e8b0da79d03a';
 
 var currentCity;
 
 function getWeather(data) {
 
-    var requestUrl = `https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&appid={API key}`
+    var requestUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${data.lat}&lon=${data.lon}&appid=${apikey}`
     fetch(requestUrl)
         .then(function(response) {
             return response.json();
         })
         .then(function(data){
+            console.log(data)
             var currentConditionsEl = $('#currentConditions');
             currentConditionsEl.addClass('border border-primary');
             
@@ -21,34 +22,34 @@ function getWeather(data) {
             cityNameEl.text(currentCity);
             currentConditionsEl.append(cityNameEl);
 
-            var currentCityDate = data.current.dt;
+            var currentCityDate = data.dt;
             currentCityDate = moment.unix(currentCityDate).format("MM/DD/YYYY");
 
             var currentDateEl = $('<span>');
             currentDateEl.text(`(${currentCityDate})`);
             cityNameEl.append(currentDateEl);
 
-            var CurrentCityWeatherIcon = data.current.weather[0].icon;
-            var currentWeatherIconEl = $('<img');
-            CurrentCityWeatherIcon.attr("scr", "http://openweathermap.org/img/wn/" + currentCityWeatherIcon + ".png");
+            var currentCityWeatherIcon = data.weather[0].icon;
+            var currentWeatherIconEl = $('img');
+            currentWeatherIconEl.attr("src", "http://openweathermap.org/img/wn/" + currentCityWeatherIcon + ".png");
             cityNameEl.append(currentWeatherIconEl);
 
-            var currentCityTemp = data.current.temp;
+            var currentCityTemp = data.main.temp;
             var currentTempEl = $('<p>');
             currentTempEl.text(`Temp: ${currentCityTemp}°C`)
             currentConditionsEl.append(currentTempEl);
 
-            var currentCityWind = data.current.wind_speed;
+            var currentCityWind = data.wind.speed;
             var currentWindEl = $('<p>')
             currentWindEl.text(`Wind: ${currentCityWind} KPH`)
             currentConditionsEl.append(currentWindEl);
 
-            var currentCityHumidity = data.current.humidity;
+            var currentCityHumidity = data.main.humidity;
             var currentHumidityEl = $('<p>')
             currentHumidityEl.text(`Humidity: ${currentCityHumidity}%`)
             currentConditionsEl.append(currentHumidityEl);
 
-            var currentCityUV = data.current.uvi;
+            var currentCityUV = data.uvi;
             var currentUvEl = $('<p>');
             var currentUvSpanEl = $('<span>');
             currentUvEl.append(currentUvSpanEl);
@@ -67,7 +68,7 @@ function getWeather(data) {
                 currentUvSpanEl.css({'background-color':'violet','color': 'white'});
             }
 
-            currentUvSpanEl.append(currentUvEl);
+            //currentUvSpanEl.append(currentUvEl);
 
             //5 day forecast
             // create 5 day forecast <h2> header
@@ -79,21 +80,21 @@ function getWeather(data) {
             var fiveDayForecastEl = $('#fiveDayForecast');
 
             //get key weather info from API data for 5 day forecast
-
+            console.log(data)
             for (var i = 1; i <= 5; i++) {
                 var date;
-                var temp;
-                var icon;
-                var wind;
-                var humidity;
+                var temp = data.main.temp;
+                var icon = data.weather[0].icon;
+                var wind = data.wind.speed;
+                var humidity = data.main.humidity;
 
-                date = data.daily[i].dt;
-                date = moment.unix(data).format("MM/DD/YYYY");
+                date = data.dt;
+                date = moment.unix(date).format("MM/DD/YYYY");
 
-                temp = data.daily[i].temp.day;
-                icon = data.daily[i].weather[0].icon;
-                wind = data.daily[i].wind_speed;
-                humidity = data.daily[i].humidity;
+                // temp = data.main.temp;
+                // icon = data.weather[0].icon;
+                // wind = data.wind.speed;
+                // humidity = data.humidity;
 
                 //create display box
                 var displayBox = document.createElement('div');
@@ -133,8 +134,9 @@ function displaySearchHist() {
 //Use Open Weather Current weather API to get the city coordinates
 
 function getCoordinates() {
-    var requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=${APIkey}`;
-    var storedCities = JSON.parse(local.storage.getItem("cities")) || [];
+    console.log("current-city")
+    var requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=${apikey}`;
+    var storedCities = JSON.parse(localStorage.getItem("cities")) || [];
 
     fetch(requestUrl)
         .then(function(response){
@@ -154,7 +156,7 @@ function getCoordinates() {
             storedCities.push(cityInfo);
             localStorage.setItem("cities",JSON.stringify(storedCities));
 
-            displaySearchHistory();
+            //displaySearchHistory();
 
             return cityInfo;
         })
@@ -208,7 +210,7 @@ function getPastCity(event) {
 
         clearCurrentCityWeather();
 
-        var requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=${APIkey}`;
+        var requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=${apikey}`;
 
         fetch(requestUrl)
             .then(function (response) {
